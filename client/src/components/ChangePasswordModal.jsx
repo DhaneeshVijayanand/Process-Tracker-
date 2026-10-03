@@ -47,42 +47,42 @@ export const ChangePasswordModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full max-w-md glass-panel-glow rounded-2xl p-6 relative border border-cyan-500/30">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-7 relative border border-[#E3E8DE] shadow-saas-float">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/5"
+          className="absolute top-5 right-5 text-[#5A6E69] hover:text-[#10201D] transition-colors p-1 rounded-xl hover:bg-[#F7F8F2]"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-glow-cyan">
+          <div className="w-10 h-10 rounded-2xl bg-[#EFF2E9] text-[#064E45] flex items-center justify-center">
             <KeyRound className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white font-display tracking-wide">Change Security Key</h3>
-            <p className="text-xs text-slate-400">Update your account access password</p>
+            <h3 className="text-lg font-bold text-[#10201D] font-heading tracking-tight">Change Security Key</h3>
+            <p className="text-xs text-[#5A6E69]">Update your account access password</p>
           </div>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center gap-2 text-red-400 text-sm">
+          <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 flex items-center gap-2 text-rose-800 text-xs">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2 text-emerald-400 text-sm">
-            <CheckCircle className="w-4 h-4 flex-shrink-0" />
+          <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-emerald-800 text-xs">
+            <CheckCircle className="w-4 h-4 flex-shrink-0 text-[#087F6A]" />
             <span>{success}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block font-bold text-[#10201D] mb-1.5">
               Current Password
             </label>
             <input
@@ -90,13 +90,13 @@ export const ChangePasswordModal = ({ isOpen, onClose }) => {
               required
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm placeholder-slate-500"
+              className="w-full px-4 py-2.5 rounded-xl saas-input text-xs"
               placeholder="••••••••"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block font-bold text-[#10201D] mb-1.5">
               New Password (min 6 chars)
             </label>
             <input
@@ -104,13 +104,13 @@ export const ChangePasswordModal = ({ isOpen, onClose }) => {
               required
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm placeholder-slate-500"
+              className="w-full px-4 py-2.5 rounded-xl saas-input text-xs"
               placeholder="••••••••"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block font-bold text-[#10201D] mb-1.5">
               Confirm New Password
             </label>
             <input
@@ -118,7 +118,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }) => {
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl glass-input text-white text-sm placeholder-slate-500"
+              className="w-full px-4 py-2.5 rounded-xl saas-input text-xs"
               placeholder="••••••••"
             />
           </div>
@@ -127,14 +127,14 @@ export const ChangePasswordModal = ({ isOpen, onClose }) => {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800/60 text-slate-300 text-sm font-medium transition-colors"
+              className="flex-1 py-2.5 rounded-xl border border-[#D8E0D7] hover:bg-[#F7F8F2] text-[#5A6E69] text-xs font-semibold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2.5 rounded-xl cyber-button-cyan text-sm flex items-center justify-center gap-2 disabled:opacity-50"
+              className="flex-1 py-2.5 rounded-xl btn-lime text-xs font-bold disabled:opacity-50"
             >
               {loading ? (
                 <>

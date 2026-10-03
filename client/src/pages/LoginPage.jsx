@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Sparkles, Lock, User, ArrowRight, AlertCircle, Shield, Zap, Check, CheckCircle2 } from 'lucide-react';
+import { Lock, User, ArrowRight, AlertCircle, Shield, Zap, Check, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { LogoIcon } from '../components/Logo';
 
 export const LoginPage = () => {
   const { login } = useAuth();
@@ -39,10 +40,8 @@ export const LoginPage = () => {
       {/* Login Card */}
       <div className="relative z-10 w-full max-w-md">
         {/* Brand Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-3xl bg-[#064E45] text-[#DFFF72] shadow-emerald-btn mb-4">
-            <Sparkles className="w-7 h-7 fill-current" />
-          </div>
+        <div className="text-center mb-8 flex flex-col items-center">
+          <LogoIcon size={56} variant="emerald" className="mb-4" />
           <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#10201D] tracking-tight">
             BA Process Tracker
           </h1>

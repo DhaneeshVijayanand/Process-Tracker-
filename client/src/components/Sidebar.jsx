@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   UserCheck
 } from 'lucide-react';
+import { BrandLogo } from './Logo';
 import { useAuth } from '../context/AuthContext';
 
 export const NAV_ITEMS = [
@@ -63,19 +64,7 @@ export const Sidebar = ({ activeTab, setActiveTab, mobileOpen, setMobileOpen, on
         {/* Brand Header */}
         <div>
           <div className="p-6 pb-4 flex items-center justify-between border-b border-[#0A5C52]">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-[#DFFF72] text-[#064E45] flex items-center justify-center font-extrabold text-lg shadow-lime-btn">
-                <Sparkles className="w-5 h-5 fill-current" />
-              </div>
-              <div>
-                <span className="font-heading font-extrabold text-lg tracking-tight block text-white">
-                  BA Process Tracker
-                </span>
-                <span className="text-[11px] font-mono text-[#DFFF72] uppercase tracking-wider block">
-                  Enterprise Cockpit
-                </span>
-              </div>
-            </div>
+            <BrandLogo />
 
             {/* Mobile Close Button */}
             <button

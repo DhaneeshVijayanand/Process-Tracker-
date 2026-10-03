@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #060913;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 15, 29, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.55);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(13, 19, 36, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.16);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-glow {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 245, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 0 0 15px -3px rgba(0, 245, 255, 0.15);
+}
+
+.glass-input {
+  background: rgba(8, 12, 24, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: #00f5ff;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+  outline: none;
+}
+
+/* Neon Text Glows */
+.neon-text-cyan {
+  color: #00f5ff;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.6);
+}
+
+.neon-text-violet {
+  color: #c084fc;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+}
+
+.neon-text-pink {
+  color: #f472b6;
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
+}
+
+/* Cyber Button */
+.cyber-button-cyan {
+  background: linear-gradient(135deg, #00f5ff 0%, #3b82f6 100%);
+  color: #030712;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.35);
+}
+
+.cyber-button-cyan:hover {
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.cyber-button-violet {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.35);
+}
+
+.cyber-button-violet:hover {
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+  transform: translateY(-1px);
+}

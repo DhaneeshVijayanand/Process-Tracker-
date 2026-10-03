@@ -1,0 +1,82 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String         @id @default(cuid())
+  userId       String         @unique
+  name         String
+  passwordHash String
+  role         String         // "ADMIN", "TEAM", "CLIENT"
+  createdAt    DateTime       @default(now())
+  
+  projects     Project[]      @relation("ClientProjects")
+  updates      Update[]       @relation("AuthorUpdates")
+  reactions    Reaction[]
+  comments     Comment[]
+  notifications Notification[]
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  clientId  String
+  client    User     @relation("ClientProjects", fields: [clientId], references: [id], onDelete: Cascade)
+  stage     String   @default("Planning") // "Planning", "In Progress", "Review", "Completed"
+  progress  Int      @default(0)          // 0 to 100
+  createdAt DateTime @default(now())
+
+  updates   Update[]
+}
+
+model Update {
+  id        String     @id @default(cuid())
+  projectId String
+  project   Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User       @relation("AuthorUpdates", fields: [authorId], references: [id], onDelete: Cascade)
+  text      String
+  imageUrl  String?
+  stage     String     // "Planning", "In Progress", "Review", "Completed"
+  progress  Int        // 0 to 100
+  createdAt DateTime   @default(now())
+
+  reactions Reaction[]
+  comments  Comment[]
+}
+
+model Reaction {
+  id        String   @id @default(cuid())
+  updateId  String
+  update    Update   @relation(fields: [updateId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emoji     String   // "🔥", "👍", "❤️"
+  createdAt DateTime @default(now())
+
+  @@unique([updateId, userId, emoji])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  updateId  String
+  update    Update   @relation(fields: [updateId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

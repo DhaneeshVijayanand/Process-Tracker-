@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5ff"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="violet-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 245, 255, 0.08)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+  
+  <!-- Glowing Nodes and Connections -->
+  <circle cx="200" cy="180" r="45" fill="rgba(0, 245, 255, 0.15)" stroke="#00f5ff" stroke-width="2"/>
+  <text x="200" y="185" fill="#00f5ff" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">DISCOVERY</text>
+  
+  <line x1="245" y1="180" x2="355" y2="180" stroke="url(#cyan-glow)" stroke-width="3" stroke-dasharray="6,4"/>
+  
+  <circle cx="400" cy="180" r="45" fill="rgba(168, 85, 247, 0.15)" stroke="#a855f7" stroke-width="2"/>
+  <text x="400" y="185" fill="#c084fc" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">BA ARCHITECTURE</text>
+  
+  <line x1="445" y1="180" x2="555" y2="180" stroke="url(#violet-glow)" stroke-width="3"/>
+  
+  <circle cx="600" cy="180" r="45" fill="rgba(236, 72, 153, 0.15)" stroke="#ec4899" stroke-width="2"/>
+  <text x="600" y="185" fill="#f472b6" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">PROTOTYPE</text>
+  
+  <!-- Bottom Status Card -->
+  <rect x="150" y="280" width="500" height="100" rx="16" fill="rgba(15, 23, 42, 0.7)" stroke="rgba(0, 245, 255, 0.3)" stroke-width="1.5"/>
+  <text x="180" y="320" fill="#38bdf8" font-family="sans-serif" font-size="16" font-weight="bold">SYSTEM BLUEPRINT SPECIFICATION v2.4</text>
+  <text x="180" y="350" fill="#94a3b8" font-family="sans-serif" font-size="13">Stakeholder approval granted • All 14 user journeys verified</text>
+</svg>

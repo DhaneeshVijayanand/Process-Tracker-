@@ -78,6 +78,27 @@ process-tracker/
 
 ---
 
+## 🎈 Deploy to Streamlit Community Cloud (1-Click & Free)
+
+This repository includes a standalone, high-performance Streamlit application (`app.py`) replicating the entire **BA Process Tracker** cockpit with interactive Plotly analytics, 10-step BABOK delivery lifecycle, requirements traceability matrix, and stakeholder 2x2 grid.
+
+### Instant 1-Click Cloud Deployment Steps:
+1. Go to **[share.streamlit.io](https://share.streamlit.io)** and log in with your GitHub account.
+2. Click **"Create app"** / **"New app"**.
+3. Select your repository: **`DhaneeshVijayanand/Process-Tracker-`**
+4. Set Branch: **`main`**
+5. Set Main file path: **`app.py`**
+6. Click **"Deploy!"**
+7. Your live public dashboard will instantly launch at a permanent `https://<your-app>.streamlit.app` URL!
+
+### Run Streamlit Locally:
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+---
+
 ## ⚡ Quick Start & Setup Guide
 
 ### Prerequisites

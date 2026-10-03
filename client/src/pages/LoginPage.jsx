@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Lock, User, ArrowRight, AlertCircle, Shield, Zap, Check } from 'lucide-react';
+import { Sparkles, Lock, User, ArrowRight, AlertCircle, Shield, Zap, Check, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export const LoginPage = () => {
@@ -31,54 +31,42 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden bg-[#060913]">
-      {/* Ambient Glowing Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-[140px] pointer-events-none" />
-
-      {/* Cyber Background Grid Overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgba(0, 245, 255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 245, 255, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }}
-      />
+    <div className="min-h-screen relative flex items-center justify-center p-4 bg-[#F7F8F2] overflow-hidden">
+      {/* Decorative Emerald Circles in background */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#064E45]/5 rounded-full pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#DFFF72]/20 rounded-full pointer-events-none" />
 
       {/* Login Card */}
       <div className="relative z-10 w-full max-w-md">
-        {/* Header Branding */}
+        {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-400 via-violet-500 to-pink-500 p-[1.5px] shadow-glow-cyan mb-4">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <Activity className="w-7 h-7 text-cyan-400 animate-pulse" />
-            </div>
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-3xl bg-[#064E45] text-[#DFFF72] shadow-emerald-btn mb-4">
+            <Sparkles className="w-7 h-7 fill-current" />
           </div>
-          <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-wide">
-            PROCESS <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">// TRACKER</span>
+          <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#10201D] tracking-tight">
+            BA Process Tracker
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 font-mono mt-1">
-            Real-Time Enterprise Delivery & Milestone Cockpit
+          <p className="text-xs sm:text-sm text-[#5A6E69] font-medium mt-1">
+            Enterprise Business Analyst & Client Delivery Platform
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="glass-panel-glow rounded-3xl p-6 sm:p-8 border border-cyan-500/30 backdrop-blur-2xl">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E3E8DE] shadow-saas-card">
           {error && (
-            <div className="mb-5 p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center gap-2.5 text-red-400 text-xs sm:text-sm animate-in fade-in">
+            <div className="mb-5 p-3 rounded-2xl bg-rose-50 border border-rose-200 flex items-center gap-2 text-rose-800 text-xs animate-in fade-in">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+              <label className="block font-bold text-[#10201D] mb-1.5 uppercase font-mono tracking-wider">
                 User ID / Handle
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8C9E9A]">
                   <User className="w-4 h-4" />
                 </div>
                 <input
@@ -87,17 +75,17 @@ export const LoginPage = () => {
                   value={userId}
                   onChange={(e) => setUserId(e.target.value)}
                   placeholder="e.g. admin, team, client"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl glass-input text-white text-sm placeholder-slate-500"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl saas-input text-xs"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+              <label className="block font-bold text-[#10201D] mb-1.5 uppercase font-mono tracking-wider">
                 Security Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8C9E9A]">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
@@ -106,7 +94,7 @@ export const LoginPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl glass-input text-white text-sm placeholder-slate-500"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl saas-input text-xs"
                 />
               </div>
             </div>
@@ -114,32 +102,32 @@ export const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-3 rounded-xl cyber-button-cyan text-sm flex items-center justify-center gap-2 tracking-wide disabled:opacity-50"
+              className="w-full mt-2 py-3 rounded-xl btn-lime text-xs font-bold flex items-center justify-center gap-2 tracking-wide disabled:opacity-50"
             >
               {loading ? (
                 <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                  <span className="w-4 h-4 border-2 border-[#064E45] border-t-transparent rounded-full animate-spin" />
                   AUTHENTICATING...
                 </span>
               ) : (
                 <>
-                  <span>INITIALIZE SESSION</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Sign In to Cockpit</span>
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                 </>
               )}
             </button>
           </form>
 
           {/* Quick Demo Credentials */}
-          <div className="mt-6 pt-5 border-t border-slate-800">
-            <span className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2.5 text-center">
-              ⚡ Demo Access Credentials:
+          <div className="mt-6 pt-5 border-t border-[#EFF2E9]">
+            <span className="block text-[11px] font-mono uppercase tracking-wider text-[#5A6E69] mb-2.5 text-center font-bold">
+              ⚡ 1-Click Demo Credentials:
             </span>
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickLogin('admin', 'admin123')}
-                className="px-2 py-2 rounded-xl bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 text-pink-300 text-[11px] font-mono font-medium flex flex-col items-center justify-center gap-1 transition-all"
+                className="px-2 py-2 rounded-xl bg-[#EFF2E9] hover:bg-[#DFFF72] text-[#064E45] text-[11px] font-mono font-bold flex flex-col items-center justify-center gap-1 transition-all"
               >
                 <Shield className="w-3.5 h-3.5" />
                 <span>Admin</span>
@@ -147,7 +135,7 @@ export const LoginPage = () => {
               <button
                 type="button"
                 onClick={() => handleQuickLogin('team', 'team123')}
-                className="px-2 py-2 rounded-xl bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/30 text-violet-300 text-[11px] font-mono font-medium flex flex-col items-center justify-center gap-1 transition-all"
+                className="px-2 py-2 rounded-xl bg-[#EFF2E9] hover:bg-[#DFFF72] text-[#064E45] text-[11px] font-mono font-bold flex flex-col items-center justify-center gap-1 transition-all"
               >
                 <Zap className="w-3.5 h-3.5" />
                 <span>Team</span>
@@ -155,17 +143,16 @@ export const LoginPage = () => {
               <button
                 type="button"
                 onClick={() => handleQuickLogin('client', 'client123')}
-                className="px-2 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono font-medium flex flex-col items-center justify-center gap-1 transition-all"
+                className="px-2 py-2 rounded-xl bg-[#EFF2E9] hover:bg-[#DFFF72] text-[#064E45] text-[11px] font-mono font-bold flex flex-col items-center justify-center gap-1 transition-all"
               >
-                <Activity className="w-3.5 h-3.5" />
+                <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Client</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Security / System Notice */}
-        <p className="text-center text-[11px] text-slate-500 font-mono mt-5">
+        <p className="text-center text-[11px] text-[#5A6E69] font-mono mt-5">
           Encrypted AES-256 Auth • Role-isolated database sessions
         </p>
       </div>

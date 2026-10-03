@@ -15,6 +15,43 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
+# User Accounts & Credentials Store
+# ---------------------------------------------------------
+ACCOUNTS = {
+    "admin": {
+        "password": "admin123",
+        "name": "Elena Rostova",
+        "role": "Administrator & Lead BA",
+        "badge": "Admin",
+        "role_code": "ADMIN",
+        "email": "elena.rostova@enterprise.com"
+    },
+    "team": {
+        "password": "team123",
+        "name": "Marcus Vance",
+        "role": "Senior Business Analyst",
+        "badge": "Team",
+        "role_code": "TEAM",
+        "email": "marcus.vance@enterprise.com"
+    },
+    "client": {
+        "password": "client123",
+        "name": "David Sterling",
+        "role": "Client Executive Sponsor",
+        "badge": "Client",
+        "role_code": "CLIENT",
+        "email": "david.sterling@clientcorp.com"
+    }
+}
+
+# Session Authentication State (Resets automatically whenever tab/browser is closed)
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if "current_user" not in st.session_state:
+    st.session_state.current_user = None
+
+# ---------------------------------------------------------
 # Custom Styling: Modern Deep Emerald & Bright Lime SaaS Theme
 # ---------------------------------------------------------
 st.markdown("""
@@ -61,6 +98,15 @@ st.markdown("""
         text-transform: uppercase;
     }
     
+    /* User Profile Card in Sidebar */
+    .user-profile-box {
+        background: rgba(4, 63, 56, 0.7);
+        border: 1px solid #087F6A;
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 16px;
+    }
+    
     /* Stat KPI Card */
     .stat-card {
         background: #FFFFFF;
@@ -102,18 +148,18 @@ st.markdown("""
         color: #064E45;
     }
     
-    /* Step Milestone Pill */
-    .step-pill {
-        padding: 10px 14px;
-        border-radius: 14px;
-        margin-bottom: 8px;
-        border: 1px solid #E3E8DE;
-        background: white;
+    /* Primary buttons */
+    .stButton > button[kind="primary"] {
+        background-color: #DFFF72 !important;
+        color: #064E45 !important;
+        font-weight: 800 !important;
+        border: none !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 14px rgba(223, 255, 114, 0.4) !important;
     }
-    .step-pill-active {
-        background: #064E45;
-        color: white;
-        border-color: #064E45;
+    .stButton > button[kind="primary"]:hover {
+        background-color: #E8FF9A !important;
+        color: #043F38 !important;
     }
     
     /* Sidebar Styling */
@@ -131,6 +177,92 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+# ---------------------------------------------------------
+# AUTHENTICATION GUARD & LOGIN PAGE
+# ---------------------------------------------------------
+if not st.session_state.authenticated:
+    # Hide sidebar when on Login screen
+    st.markdown("""
+    <style>
+        [data-testid="stSidebar"] {
+            display: none !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    col_l, col_center, col_r = st.columns([1, 1.6, 1])
+    
+    with col_center:
+        st.markdown("<br>", unsafe_allow_html=True)
+        # Bespoke Vector Logo Header
+        st.markdown("""
+        <div style="text-align: center; margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 68px; height: 68px; border-radius: 22px; background: #064E45; border: 1.5px solid #087F6A; box-shadow: 0 12px 30px rgba(6, 78, 69, 0.25); margin-bottom: 16px;">
+                <svg width="42" height="42" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 9C12 5.5 19 5.5 24 9.5" stroke="#8BE4A0" stroke-width="2" stroke-dasharray="2.5 2.5" stroke-linecap="round"/>
+                    <path d="M6 24L13 17L18 21L26 9" stroke="#DFFF72" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="6" cy="24" r="2.4" fill="#E8FF9A"/>
+                    <circle cx="13" cy="17" r="2.4" fill="#E8FF9A"/>
+                    <circle cx="18" cy="21" r="2.4" fill="#E8FF9A"/>
+                    <circle cx="26" cy="9" r="3.4" fill="#FFFFFF" stroke="#DFFF72" stroke-width="1.8"/>
+                    <circle cx="26" cy="9" r="1.2" fill="#064E45"/>
+                </svg>
+            </div>
+            <h1 style="color: #10201D; font-weight: 800; font-size: 28px; margin: 0; letter-spacing: -0.5px;">BA Process Tracker</h1>
+            <p style="color: #5A6E69; font-size: 13px; margin-top: 6px; font-weight: 500;">Enterprise Business Analyst & Client Delivery Platform</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Login Card Container
+        with st.container(border=True):
+            st.markdown("<h3 style='margin-top: 4px; font-size: 17px; color: #10201D; font-weight: 700;'>Sign In to Cockpit</h3>", unsafe_allow_html=True)
+            
+            login_user = st.text_input("User ID / Handle", placeholder="e.g. admin, team, client")
+            login_pwd = st.text_input("Security Password", type="password", placeholder="••••••••")
+            
+            st.markdown("<br>", unsafe_allow_html=True)
+            submit_login = st.button("Sign In to Cockpit ➔", type="primary", use_container_width=True)
+            
+            if submit_login:
+                clean_uid = login_user.strip().lower()
+                if clean_uid in ACCOUNTS and ACCOUNTS[clean_uid]["password"] == login_pwd:
+                    st.session_state.authenticated = True
+                    st.session_state.current_user = {
+                        "id": clean_uid,
+                        **ACCOUNTS[clean_uid]
+                    }
+                    st.rerun()
+                else:
+                    st.error("Authentication failed. Please verify your User ID and password.")
+            
+            st.markdown("---")
+            st.markdown("<div style='text-align: center; font-size: 11px; font-family: monospace; font-weight: 700; color: #5A6E69; margin-bottom: 8px;'>⚡ 1-CLICK DEMO CREDENTIALS:</div>", unsafe_allow_html=True)
+            
+            demo_col1, demo_col2, demo_col3 = st.columns(3)
+            with demo_col1:
+                if st.button("🛡️ Admin", use_container_width=True):
+                    st.session_state.authenticated = True
+                    st.session_state.current_user = {"id": "admin", **ACCOUNTS["admin"]}
+                    st.rerun()
+            with demo_col2:
+                if st.button("⚡ Team", use_container_width=True):
+                    st.session_state.authenticated = True
+                    st.session_state.current_user = {"id": "team", **ACCOUNTS["team"]}
+                    st.rerun()
+            with demo_col3:
+                if st.button("👤 Client", use_container_width=True):
+                    st.session_state.authenticated = True
+                    st.session_state.current_user = {"id": "client", **ACCOUNTS["client"]}
+                    st.rerun()
+                    
+        st.markdown("""
+        <div style="text-align: center; color: #8C9E9A; font-size: 11px; font-family: monospace; margin-top: 16px;">
+            🔒 Encrypted AES-256 Auth • Automatically logged out on window close
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.stop()
 
 # ---------------------------------------------------------
 # Default Mock Data Initialization
@@ -169,8 +301,10 @@ if "change_requests" not in st.session_state:
         {"id": "CR-003", "title": "Custom Watermark on PDF Invoices", "status": "Draft", "impact_days": "+1 day", "cost": "$800", "urgency": "Low", "justification": "Brand team compliance request"},
     ]
 
+current_user = st.session_state.current_user or ACCOUNTS["admin"]
+
 # ---------------------------------------------------------
-# Sidebar Branding & Project Controls
+# Sidebar Branding, Active User & Controls
 # ---------------------------------------------------------
 with st.sidebar:
     st.markdown("""
@@ -191,6 +325,25 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     
+    # User Profile Block
+    st.markdown(f"""
+    <div class="user-profile-box">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; font-weight: 800; font-family: monospace; color: #DFFF72;">● {current_user['badge'].upper()}</span>
+            <span style="font-size: 10px; color: #8BE4A0;">Logged In</span>
+        </div>
+        <div style="font-size: 14px; font-weight: 800; color: #FFFFFF; margin-top: 4px;">{current_user['name']}</div>
+        <div style="font-size: 11px; color: #B2D1CB;">{current_user['role']}</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button("🚪 Sign Out / Exit Session", use_container_width=True):
+        st.session_state.authenticated = False
+        st.session_state.current_user = None
+        st.rerun()
+        
+    st.markdown("---")
+    
     st.markdown("### 📁 Active Project")
     project_names = [p["name"] for p in st.session_state.projects]
     selected_proj_name = st.selectbox("Select Project", project_names, index=0)
@@ -209,15 +362,16 @@ with st.sidebar:
     st.caption(f"Overall Completion: **{selected_project['progress']}%** ({selected_project['status']})")
     
     st.markdown("---")
-    st.caption("🔒 Encrypted Cockpit Session • v2.4 SaaS")
+    st.caption("🔒 Encrypted Session • Auto-logout on tab close")
 
 # ---------------------------------------------------------
-# Top Header & Greeting
+# Top Header & Dynamic Greeting
 # ---------------------------------------------------------
+first_name = current_user['name'].split()[0]
 col_head1, col_head2 = st.columns([3, 1])
 with col_head1:
-    st.markdown("<h1 style='margin-bottom: 2px; color: #10201D; font-weight: 800; font-size: 32px;'>Good morning, Elena</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='color: #5A6E69; font-size: 14px;'>Here is your Business Analyst trajectory, gate deliverables, and requirement metrics for today.</p>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='margin-bottom: 2px; color: #10201D; font-weight: 800; font-size: 32px;'>Good morning, {first_name}</h1>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: #5A6E69; font-size: 14px;'>Role: <b>{current_user['role']}</b> • Here is your Business Analyst trajectory, gate deliverables, and requirement metrics for today.</p>", unsafe_allow_html=True)
 
 with col_head2:
     st.markdown("<div style='text-align: right; padding-top: 8px;'><span style='background: #DFFF72; color: #064E45; padding: 6px 14px; border-radius: 20px; font-weight: 800; font-size: 12px; font-family: monospace;'>● GATE 6 IN PROGRESS</span></div>", unsafe_allow_html=True)
@@ -376,7 +530,7 @@ with tabs[1]:
             with c_b:
                 new_moscow = st.selectbox("MoSCoW Priority", ["Must Have", "Should Have", "Could Have", "Won't Have"])
                 new_complexity = st.selectbox("Complexity Estimate", ["Low", "Medium", "High"])
-                new_owner = st.text_input("Assignee / Lead Owner", value="Elena Rostova")
+                new_owner = st.text_input("Assignee / Lead Owner", value=current_user['name'])
             
             submit_btn = st.form_submit_button("Create Requirement")
             if submit_btn and new_title.strip():
@@ -422,7 +576,6 @@ with tabs[2]:
         title="Stakeholder Grid (2x2 BABOK Model)"
     )
     
-    # Add quadrant dividing lines
     fig_matrix.add_hline(y=5, line_dash="dash", line_color="#CBD5E1")
     fig_matrix.add_vline(x=5, line_dash="dash", line_color="#CBD5E1")
     
@@ -538,7 +691,6 @@ with tabs[5]:
     
     col_chart1, col_chart2 = st.columns(2)
     with col_chart1:
-        # MoSCoW Breakdown Donut
         moscow_counts = pd.DataFrame(st.session_state.requirements)["moscow"].value_counts().reset_index()
         moscow_counts.columns = ["MoSCoW", "Count"]
         
@@ -560,7 +712,6 @@ with tabs[5]:
         st.plotly_chart(fig_donut, use_container_width=True)
         
     with col_chart2:
-        # Requirements Status Bar Chart
         status_counts = pd.DataFrame(st.session_state.requirements)["status"].value_counts().reset_index()
         status_counts.columns = ["Status", "Count"]
         
@@ -581,6 +732,6 @@ with tabs[5]:
 st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #5A6E69; font-size: 12px; font-family: monospace;">
-    BA PROCESS TRACKER • ENTERPRISE DELIVERY COCKPIT • READY FOR STREAMLIT COMMUNITY CLOUD
+    BA PROCESS TRACKER • ENTERPRISE DELIVERY COCKPIT • STREAMLIT CLOUD EDITION
 </div>
 """, unsafe_allow_html=True)
